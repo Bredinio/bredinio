@@ -4,8 +4,145 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lucas Bredin</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f5f3ef;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  .carte {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+
+  .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #1a1a2e;
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: #1a1a2e;
+  }
+
+  .tagline {
+    font-size: 13px;
+    color: #888;
+    margin-top: 4px;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .onglets {
+    display: flex;
+    background: #f5f3ef;
+    border-radius: 10px;
+    padding: 4px;
+    gap: 4px;
+    margin-bottom: 1.25rem;
+  }
+
+  .onglets button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    background: transparent;
+    border-radius: 7px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .onglets button.actif {
+    background: white;
+    color: #1a1a2e;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  #pro, #perso {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #perso { display: none; }
+
+  #pro a, #perso a {
+    display: block;
+    padding: 14px 16px;
+    background: #f5f3ef;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #1a1a2e;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.18s;
+  }
+
+  #pro a:hover, #perso a:hover {
+    background: #ebe8e2;
+  }
+</style>
 </head>
 <body>
+<div class="carte">
 
+  <div class="avatar">LB</div>
+  <h1>Lucas Bredin</h1>
+  <p class="tagline">Ingénieur électrotechnicien · Paris</p>
+
+  <div class="onglets">
+    <button onclick="afficher('pro')" id="btn-pro" class="actif">Professionnel</button>
+    <button onclick="afficher('perso')" id="btn-perso">Personnel</button>
+  </div>
+
+  <div id="pro">
+    <a href="https://www.linkedin.com/in/lucas-bredin">LinkedIn</a>
+    <a href="mailto:lucasbredin@gmail.com">Email</a>
+    <a href="tel:+33767911697">Téléphone</a>
+  </div>
+
+  <div id="perso">
+    <a href="https://instagram.com/lucas_brdn">Instagram</a>
+  </div>
+
+</div>
+<script>
+  function afficher(onglet) {
+    document.getElementById('pro').style.display = onglet === 'pro' ? 'flex' : 'none';
+    document.getElementById('perso').style.display = onglet === 'perso' ? 'flex' : 'none';
+    document.getElementById('btn-pro').className = onglet === 'pro' ? 'actif' : '';
+    document.getElementById('btn-perso').className = onglet === 'perso' ? 'actif' : '';
+  }
+</script>
 </body>
 </html>
