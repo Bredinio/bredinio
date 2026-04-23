@@ -159,8 +159,11 @@
   #pro a:nth-child(2) { animation-delay: 0.3s; }
   #pro a:nth-child(3) { animation-delay: 0.4s; }
   #pro a:nth-child(4) { animation-delay: 0.5s; }
+  #pro a:nth-child(5) { animation-delay: 0.6s; }
   #perso a:nth-child(1) { animation-delay: 0.15s; }
   #perso a:nth-child(2) { animation-delay: 0.25s; }
+  #perso a:nth-child(3) { animation-delay: 0.35s; }
+  #perso a:nth-child(4) { animation-delay: 0.45s; }
 
   @keyframes glissement {
     from { opacity: 0; transform: translateX(-14px); }
@@ -205,32 +208,6 @@
     color: #3d5080;
   }
 
-  .btn-vcard {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 1.25rem;
-    padding: 12px;
-    background: rgba(59,130,246,0.15);
-    border: 1px solid rgba(59,130,246,0.35);
-    border-radius: 14px;
-    color: #93c5fd;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.2s;
-    opacity: 0;
-    animation: glissement 0.4s ease 0.6s forwards;
-  }
-
-  .btn-vcard:hover {
-    background: rgba(59,130,246,0.25);
-    transform: translateY(-1px);
-  }
-
   @media (prefers-color-scheme: light) {
     body { background: #f0f4ff; }
     body::before { background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%); }
@@ -245,8 +222,6 @@
     #pro a:hover, #perso a:hover { background: #dce6fd; border-color: rgba(59,130,246,0.2); }
     .link-label { color: #1a1a2e; }
     .fa-chevron-right { color: #bbb; }
-    .btn-vcard { background: #e8f0fe; border-color: rgba(59,130,246,0.3); color: #1e40af; }
-    .btn-vcard:hover { background: #dce6fd; }
   }
 </style>
 </head>
@@ -257,7 +232,7 @@
     <img src="photo.jpg" alt="Lucas Bredin">
   </div>
   <h1>Lucas Bredin</h1>
-  <p class="tagline" id="tagline">Ingénieur en maîtrise énergétique · France</p>
+  <p class="tagline" id="tagline">Ingénieur en maîtrise énergétique</p>
 
   <div class="onglets">
     <button onclick="afficher('pro')" id="btn-pro" class="actif">Professionnel</button>
@@ -284,8 +259,16 @@
     <a href="tel:+33767911697">
       <i class="fa-solid fa-phone"></i>
       <span class="link-text">
-        <span class="link-label">Téléphone</span>
+        <span class="link-label" id="tel-label">Téléphone</span>
         <span class="link-sub">+33 7 67 91 16 97</span>
+      </span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </a>
+    <a href="cv.pdf" target="_blank">
+      <i class="fa-solid fa-file-pdf"></i>
+      <span class="link-text">
+        <span class="link-label" id="cv-label">Voir mon CV</span>
+        <span class="link-sub" id="cv-sub">Télécharger le PDF</span>
       </span>
       <i class="fa-solid fa-chevron-right"></i>
     </a>
@@ -308,6 +291,30 @@
       </span>
       <i class="fa-solid fa-chevron-right"></i>
     </a>
+    <a href="https://wa.me/33767911697">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span class="link-text">
+        <span class="link-label">WhatsApp</span>
+        <span class="link-sub">+33 7 67 91 16 97</span>
+      </span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </a>
+    <a href="https://strava.app.link/tbqYJ0tgz2b">
+      <i class="fa-solid fa-person-running"></i>
+      <span class="link-text">
+        <span class="link-label">Strava</span>
+        <span class="link-sub">Voir mes activités</span>
+      </span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </a>
+    <a href="#" onclick="telechargerVcard(); return false;">
+      <i class="fa-solid fa-address-card"></i>
+      <span class="link-text">
+        <span class="link-label" id="vcard-label2">Enregistrer le contact</span>
+        <span class="link-sub" id="vcard-sub2">Ajouter à mes contacts</span>
+      </span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </a>
   </div>
 
 </div>
@@ -317,18 +324,24 @@
 
   const textes = {
     fr: {
-      taglinePro: "Ingénieur en maîtrise énergétique · France",
-      taglinePerso: "Amoureux des bonnes choses · France",
+      taglinePro: "Ingénieur en maîtrise énergétique",
+      taglinePerso: "Amoureux des bonnes choses",
       pro: "Professionnel",
       perso: "Personnel",
+      tel: "Téléphone",
+      cv: "Voir mon CV",
+      cvSub: "Télécharger le PDF",
       vcard: "Enregistrer le contact",
       vcardSub: "Ajouter à mes contacts"
     },
     en: {
-      taglinePro: "Engineer in energy management · France",
-      taglinePerso: "Lover of good things · France",
+      taglinePro: "Engineer in energy management",
+      taglinePerso: "Lover of good things",
       pro: "Professional",
       perso: "Personal",
+      tel: "Phone",
+      cv: "View my resume",
+      cvSub: "Download PDF",
       vcard: "Save contact",
       vcardSub: "Add to my contacts"
     }
@@ -338,8 +351,13 @@
 
   document.getElementById('btn-pro').textContent = t.pro;
   document.getElementById('btn-perso').textContent = t.perso;
+  document.getElementById('tel-label').textContent = t.tel;
+  document.getElementById('cv-label').textContent = t.cv;
+  document.getElementById('cv-sub').textContent = t.cvSub;
   document.getElementById('vcard-label').textContent = t.vcard;
   document.getElementById('vcard-sub').textContent = t.vcardSub;
+  document.getElementById('vcard-label2').textContent = t.vcard;
+  document.getElementById('vcard-sub2').textContent = t.vcardSub;
   document.getElementById('tagline').textContent = t.taglinePro;
 
   function afficher(onglet) {
