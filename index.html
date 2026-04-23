@@ -184,6 +184,8 @@
     font-size: 16px;
   }
 
+  .tinder-btn i:first-child { color: #ff4458 !important; }
+
   .link-text {
     flex: 1;
     display: flex;
@@ -207,10 +209,6 @@
   .fa-chevron-right {
     font-size: 11px;
     color: #3d5080;
-  }
-
-  .tinder-btn i:first-child {
-    color: #ff4458 !important;
   }
 
   @media (prefers-color-scheme: light) {
@@ -308,7 +306,7 @@
       <i class="fa-solid fa-person-running"></i>
       <span class="link-text">
         <span class="link-label">Strava</span>
-        <span class="link-sub">Voir mes activités</span>
+        <span class="link-sub" id="strava-sub">Voir mes activités</span>
       </span>
       <i class="fa-solid fa-chevron-right"></i>
     </a>
@@ -321,10 +319,10 @@
       <i class="fa-solid fa-chevron-right"></i>
     </a>
     <a href="troll.jpg" target="_blank" class="tinder-btn">
-      <i class="fa-brands fa-tinder"></i>
+      <i class="fa-solid fa-fire"></i>
       <span class="link-text">
         <span class="link-label">Tinder</span>
-        <span class="link-sub">Voir mon profil 👀</span>
+        <span class="link-sub" id="tinder-sub">Voir mon profil 👀</span>
       </span>
       <i class="fa-solid fa-chevron-right"></i>
     </a>
@@ -345,7 +343,9 @@
       cv: "Voir mon CV",
       cvSub: "Télécharger le PDF",
       vcard: "Enregistrer le contact",
-      vcardSub: "Ajouter à mes contacts"
+      vcardSub: "Ajouter à mes contacts",
+      stravaSub: "Voir mes activités",
+      tinderSub: "Voir mon profil 👀"
     },
     en: {
       taglinePro: "Engineer in energy management",
@@ -356,7 +356,9 @@
       cv: "View my resume",
       cvSub: "Download PDF",
       vcard: "Save contact",
-      vcardSub: "Add to my contacts"
+      vcardSub: "Add to my contacts",
+      stravaSub: "View my activities",
+      tinderSub: "View my profile 👀"
     }
   };
 
@@ -371,6 +373,8 @@
   document.getElementById('vcard-sub').textContent = t.vcardSub;
   document.getElementById('vcard-label2').textContent = t.vcard;
   document.getElementById('vcard-sub2').textContent = t.vcardSub;
+  document.getElementById('strava-sub').textContent = t.stravaSub;
+  document.getElementById('tinder-sub').textContent = t.tinderSub;
   document.getElementById('tagline').textContent = t.taglinePro;
 
   function afficher(onglet) {
